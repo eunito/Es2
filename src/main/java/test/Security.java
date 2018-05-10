@@ -19,7 +19,6 @@ import org.jose4j.lang.JoseException;
 
 public class Security {
 	private static RsaJsonWebKey rsaJsonWebKey;
-private static JwtClaims claims;
 	
 public static String generateToken(String userPassReceived) throws MalformedClaimException, JoseException {
 	
@@ -35,11 +34,12 @@ public static String generateToken(String userPassReceived) throws MalformedClai
     rsaJsonWebKey.setKeyId("k1");
 
     // Create the Claims, which will be the content of the JWT
-    claims = new JwtClaims();
+    JwtClaims claims = new JwtClaims();
     claims.setIssuer("API_ES2");  // who creates the token and signs it
     claims.setAudience("Professor"); // to whom the token is intended to be sent
     claims.setGeneratedJwtId(); // a unique identifier for the token
     claims.setIssuedAtToNow();  // when the token was issued/created (now)
+    claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
     claims.setNotBeforeMinutesInThePast(2); // time before which the token is not yet valid (2 minutes ago)
     claims.setSubject(userPassReceived); // the subject/principal is whom the token is about
     //claims.setSubject("subject"); // the subject/principal is whom the token is about
