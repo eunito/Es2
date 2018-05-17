@@ -42,7 +42,7 @@ public class Application {
 		ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
         resource_handler.setResourceBase("./web/");
-        //resource_handler.setWelcomeFiles(new String[]{ "pom.xml" });
+
         ContextHandler staticContextHandler = new ContextHandler("/static");
         staticContextHandler.setHandler(resource_handler);
 		return staticContextHandler;

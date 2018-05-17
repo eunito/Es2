@@ -135,3 +135,4 @@ public static void validateToken(String jwtTokenToValidate) throws MalformedClai
 	
 }
 }
+//FROM - https://bitbucket.org/b_c/jose4j/wiki/JWT%20Examples#markdown-header-producing-and-consuming-a-signed-jwt
