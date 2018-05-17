@@ -21,13 +21,16 @@ public class DBmanager {
 
 
 	//DB conection methods
-	public static void selectRecordsFromTable(String login, String passwd) throws SQLException, MalformedClaimException, JoseException {
+	public static int selectRecordsFromTable(String login, String passwd) throws SQLException, MalformedClaimException, JoseException {
 
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
 		String selectSQL = "SELECT count(*) FROM UTILIZADORES_BEEP WHERE (EMAIL = ? AND PASSWORD = ?)";
 
+		System.out.println("login "+login);
+		System.out.println("password "+passwd);
+		
 		try {
 			dbConnection = getDBConnection();
 			preparedStatement = dbConnection.prepareStatement(selectSQL);
@@ -39,16 +42,17 @@ public class DBmanager {
 			System.out.println("User Check Query executed");
 
 			//if user exists create a JWT token!
-			if (rs.next()) {
+			if (rs.next() && Integer.parseInt(rs.getString("count(*)"))>0) {
 				System.out.println("user does exist! creating the token...");
 				String userPassReceived=login+passwd;
-				String tokenReceived= Security.generateToken(userPassReceived);
-				Security.validateToken(tokenReceived);
+			
+				return 1; 	//user exists
 			}
-
+			return 0;		//user does not exist
 		} catch (SQLException e) {
-
+			
 			System.out.println(e.getMessage());
+			return -1;		//exception happened!
 
 		} finally {
 

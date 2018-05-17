@@ -82,7 +82,7 @@ public static String generateToken(String userPassReceived) throws MalformedClai
 
 
 
-public static void validateToken(String jwtTokenToValidate) throws MalformedClaimException {
+public static boolean validateToken(String jwtTokenToValidate) throws MalformedClaimException {
 	// Use JwtConsumerBuilder to construct an appropriate JwtConsumer, which will
     // be used to validate and process the JWT.
     // The specific validation requirements for a JWT are context dependent, however,
@@ -106,7 +106,9 @@ public static void validateToken(String jwtTokenToValidate) throws MalformedClai
     {
         //  Validate the JWT and process it to the Claims
         JwtClaims jwtClaims = jwtConsumer.processToClaims(jwtTokenToValidate);
+      
         System.out.println("JWT validation succeeded! " + jwtClaims);
+        return true;
     }
     catch (InvalidJwtException e)
     {
@@ -127,12 +129,32 @@ public static void validateToken(String jwtTokenToValidate) throws MalformedClai
         {
             System.out.println("JWT had wrong audience: " + e.getJwtContext().getJwtClaims().getAudience());
         }
-  
+        return false;
     }
 
 	
 	
 	
 }
+//check if a userPassword exists in the usertokenList. If exists check if token is valid. If not exists or user not exists create a token and save to TokenList 
+public static boolean checkUserToken(String userPassword, String token) throws MalformedClaimException {
+	boolean tokenIsValid = false;
+	
+	if (TokenStorage.keyTokenList.containsKey(userPassword)){
+		tokenIsValid = validateToken(TokenStorage.keyTokenList.get(userPassword).toString());
+		
+		System.out.println("");
+		System.out.println(tokenIsValid);
+		
+		System.out.println("Token checked in the list is valid for userPass= "+userPassword);
+		System.out.println("");
+	}
+	else {
+		System.out.println("TOKEN INVALIDO. VAI SER GERADO UM NOVO TOKEN...");
+	}
+	
+	return tokenIsValid;
+}
+
 }
 //FROM - https://bitbucket.org/b_c/jose4j/wiki/JWT%20Examples#markdown-header-producing-and-consuming-a-signed-jwt

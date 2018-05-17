@@ -38,17 +38,37 @@ public class Controller {
 		JSONObject newDados = new JSONObject(dados);
 		String login = (String) newDados.get("LOGIN");
 		String password = (String) newDados.get("PASSWORD");
+		String token = (String) newDados.get("TOKEN");
 		String input = login+"/"+password; 
 
+		String userPassReceived = login+password;
 		DBmanager dbm = new DBmanager();
-		dbm.selectRecordsFromTable(login,password);
+		
+		if( dbm.selectRecordsFromTable(login,password)==1) {
+			if(Security.checkUserToken(userPassReceived, token)) {
+				
+				System.out.println("PODE EXECUTAR O QUE AÍ VIER!");
+			}
+			else {
+				System.out.println("TOKEN NOVO GERADO E É VALIDO DURANTE 10min: PODE EXECUTAR O QUE AÍ VIER!");
+				String tokenReceived= Security.generateToken(userPassReceived);
+				TokenStorage.saveToken(userPassReceived, tokenReceived);
+				System.out.println("O TOKEN GERADO FOI GRAVADO NA LISTA...");
+			}
+			
+			for(String item : TokenStorage.keyTokenList.values()) {
+				System.out.println("-------------");
+				System.out.println(item);
+			}
+				
+		}
+		else {
+			System.out.println("Login invalido...");
+		}
 
 		return Response.status(200).entity(input.toString()).build();
 	}
 
-	
-	
-	
 	private Response getClientDetails(HttpServletRequest req, Integer idClient) {
 
 		JSONObject clients = new JSONObject();
