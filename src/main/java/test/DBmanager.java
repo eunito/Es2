@@ -19,8 +19,6 @@ public class DBmanager {
 	private static final String DB_USER = "ei2_201718";
 	private static final String DB_PASSWORD = "password";
 
-	//testes
-
 	//DB conection methods
 	public static void selectRecordsFromTable(String login, String passwd) throws SQLException, MalformedClaimException, JoseException {
 
