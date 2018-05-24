@@ -21,7 +21,7 @@ public class DBmanager {
 
 
 	//DB conection methods
-	public static int selectRecordsFromTable(String login, String passwd) throws SQLException, MalformedClaimException, JoseException {
+	public int selectRecordsFromTable(String login, String passwd) throws SQLException, MalformedClaimException, JoseException {
 
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;

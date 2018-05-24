@@ -43,17 +43,25 @@ public class Controller {
 		String token = (String) newDados.get("TOKEN");
 		//String input = login+"/"+password; 
 
+		
 		String userPassReceived = login+password;
 		DBmanager dbm = new DBmanager();
 		
+		String tokenReceived="";
 		if( dbm.selectRecordsFromTable(login,password)==1) {
-			String tokenReceived= Security.generateToken(userPassReceived);
+			tokenReceived= Security.generateToken(userPassReceived);
 		}
 		else {
 			System.out.println("Login invalido... STOP");
 		}
+		
+		//RESPOSTA PARA ENVIAR AO CLIENTE
+		JSONObject respostaParaCliente = new JSONObject();
+		respostaParaCliente.put("LOGIN", login);
+		respostaParaCliente.put("TOKEN", tokenReceived);
+				
 
-		return Response.status(200).entity(input.toString()).build();
+		return Response.status(200).entity(respostaParaCliente.toString()).build();
 	}
 
 	private boolean validateToken(String token) throws MalformedClaimException {
