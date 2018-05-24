@@ -18,5 +18,5 @@ public class TokenStorage {
 	}
 	
 	
-	//segundo o prof temos de ter um array com token como key e user como value. o TTL já é verificado no validate
+	//segundo o prof temos de ter um array com o token como key e o user como value. o TTL já é verificado no validate
 }

@@ -136,25 +136,25 @@ public static boolean validateToken(String jwtTokenToValidate) throws MalformedC
 	
 	
 }
-//check if a userPassword exists in the usertokenList. If exists check if token is valid. If not exists or user not exists create a token and save to TokenList 
-public static boolean checkUserToken(String userPassword, String token) throws MalformedClaimException {
-	boolean tokenIsValid = false;
-	
-	if (TokenStorage.keyTokenList.containsKey(userPassword)){
-		tokenIsValid = validateToken(TokenStorage.keyTokenList.get(userPassword).toString());
-		
-		System.out.println("");
-		System.out.println(tokenIsValid);
-		
-		System.out.println("Token checked in the list is valid for userPass= "+userPassword);
-		System.out.println("");
-	}
-	else {
-		System.out.println("TOKEN INVALIDO. VAI SER GERADO UM NOVO TOKEN...");
-	}
-	
-	return tokenIsValid;
-}
+////check if a userPassword exists in the usertokenList. If exists check if token is valid. If not exists or user not exists create a token and save to TokenList 
+//public static boolean checkUserToken(String userPassword, String token) throws MalformedClaimException {
+//	boolean tokenIsValid = false;
+//	
+//	if (TokenStorage.keyTokenList.containsKey(userPassword)){
+//		tokenIsValid = validateToken(TokenStorage.keyTokenList.get(userPassword).toString());
+//		
+//		System.out.println("");
+//		System.out.println(tokenIsValid);
+//		
+//		System.out.println("Token checked in the list is valid for userPass= "+userPassword);
+//		System.out.println("");
+//	}
+//	else {
+//		System.out.println("TOKEN INVALIDO. VAI SER GERADO UM NOVO TOKEN...");
+//	}
+//	
+//	return tokenIsValid;
+//}
 
 }
 //FROM - https://bitbucket.org/b_c/jose4j/wiki/JWT%20Examples#markdown-header-producing-and-consuming-a-signed-jwt
